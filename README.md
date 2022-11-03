@@ -10,6 +10,7 @@
   - [:whale: Development(Docker)](#whale-developmentdocker)
   - [:mag_right: Development(Poetry)](#mag_right-developmentpoetry)
   - [:pencil2: Commit Message Convention](#pencil2-commit-message-convention)
+  - [:chart_with_upwards_trend: Git Flow / Branch Information](#chart_with_upwards_trend-git-flow--branch-information)
   - [:closed_book: API Docs](#closed_book-api-docs)
 
 ## :notebook_with_decorative_cover: 프로젝트 요구사항
@@ -56,5 +57,15 @@ python manage.py runserver
 - chore: 위에 해당하지 않는 모든 변경(or 🧹 emoji), eg. 빌드 스크립트 수정, 패키지 배포 설정 변경 - 코드 수정 없음
 
 위 규칙에 맞게 커밋메시지를 작성한다.
+
+## :chart_with_upwards_trend: Git Flow / Branch Information
+
+```
+- main: 제품으로 출시 될 수 있는 브랜치입니다.
+- develop: 다음 출시 버전을 개발합니다.
+- feature: 다가오는 배포(release)를 위한 새 기능(feature)을 개발합니다.
+- release: 새로운 제품 출시 준비를 지원합니다.
+- hotfix: 핫픽스는 현재 출시된 제품에 문제가 생겨서 즉각 대응해야하는 상황에서 필요합니다.
+```
 
 ## :closed_book: API Docs
