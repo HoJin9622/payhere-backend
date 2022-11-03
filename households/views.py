@@ -49,6 +49,17 @@ class HouseholdsView(APIView):
         except Household.DoesNotExist:
             raise NotFound
 
+    def get(self, request, pk):
+
+        """
+        가계부 세부내역을 가져옵니다.
+        GET api/v1/households/{pk}/
+        """
+
+        household = self.get_object(pk)
+        serializer = HouseholdSerializer(household)
+        return Response(serializer.data)
+
     def patch(self, request, pk):
 
         """
