@@ -53,6 +53,7 @@ class HouseholdsView(APIView):
 
         """
         가계부의 원하는 내역의 금액과 메모를 수정합니다.
+        PATCH api/v1/households/{pk}/
         """
 
         household = self.get_object(pk)
@@ -61,3 +62,28 @@ class HouseholdsView(APIView):
             serializer.save()
             return Response({"ok": True})
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+
+class HouseholdInactiveView(APIView):
+
+    permission_classes = [IsOwner]
+
+    def get_object(self, pk):
+        try:
+            household = Household.objects.get(pk=pk)
+            self.check_object_permissions(self.request, household)
+            return household
+        except Household.DoesNotExist:
+            raise NotFound
+
+    def post(self, request, pk):
+
+        """
+        가계부의 기록을 비활성화 합니다.
+        POST api/v1/households/{pk}/inactive
+        """
+
+        household = self.get_object(pk)
+        household.is_active = False
+        household.save()
+        return Response({"ok": True})
