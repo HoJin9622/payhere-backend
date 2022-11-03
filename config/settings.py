@@ -32,7 +32,9 @@ ALLOWED_HOSTS = []
 THIRD_PARTY_APPS = []
 
 CUSTOM_APPS = [
+    "common.apps.CommonConfig",
     "users.apps.UsersConfig",
+    "households.apps.HouseholdsConfig",
 ]
 
 SYSTEM_APPS = [

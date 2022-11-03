@@ -3,6 +3,9 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 
 class UserManager(BaseUserManager):
+
+    """Custom User Manager"""
+
     def create_user(self, email, username=None, password=None):
         if not email:
             raise ValueError("이메일은 필수 항목입니다.")
@@ -24,6 +27,9 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+
+    """유저 모델 정의"""
+
     email = models.EmailField(max_length=80, unique=True, verbose_name="이메일")
     username = models.CharField(max_length=150, verbose_name="유저명")
 
