@@ -87,3 +87,28 @@ class HouseholdInactiveView(APIView):
         household.is_active = False
         household.save()
         return Response({"ok": True})
+
+
+class HouseholdActiveView(APIView):
+
+    permission_classes = [IsOwner]
+
+    def get_object(self, pk):
+        try:
+            household = Household.objects.get(pk=pk)
+            self.check_object_permissions(self.request, household)
+            return household
+        except Household.DoesNotExist:
+            raise NotFound
+
+    def post(self, request, pk):
+
+        """
+        가계부의 기록을 활성화 합니다.
+        POST api/v1/households/{pk}/active
+        """
+
+        household = self.get_object(pk)
+        household.is_active = True
+        household.save()
+        return Response({"ok": True})
