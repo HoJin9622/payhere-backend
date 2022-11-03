@@ -5,4 +5,4 @@ from .models import Household
 class HouseholdSerializer(serializers.ModelSerializer):
     class Meta:
         model = Household
-        fields = ("id", "amount", "memo")
+        fields = ("id", "amount", "memo", "created_at")

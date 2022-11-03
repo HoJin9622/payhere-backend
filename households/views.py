@@ -12,6 +12,17 @@ class HouseholdDetailView(APIView):
 
     permission_classes = [IsAuthenticated]
 
+    def get(self, request):
+
+        """
+        가계부 리스트를 확인합니다.
+        GET api/v1/households/
+        """
+
+        household = Household.objects.filter(user=request.user, is_active=True)
+        serializer = HouseholdSerializer(household, many=True)
+        return Response(serializer.data)
+
     def post(self, request):
 
         """
