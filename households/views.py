@@ -2,7 +2,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED
+from rest_framework.exceptions import NotFound
+from .models import Household
 from .serializers import HouseholdSerializer
+from .permissions import IsOwner
 
 
 class HouseholdDetailView(APIView):
@@ -20,4 +23,30 @@ class HouseholdDetailView(APIView):
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response({"ok": True}, status=HTTP_201_CREATED)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+
+class HouseholdsView(APIView):
+
+    permission_classes = [IsOwner]
+
+    def get_object(self, pk):
+        try:
+            household = Household.objects.get(pk=pk)
+            self.check_object_permissions(self.request, household)
+            return household
+        except Household.DoesNotExist:
+            raise NotFound
+
+    def patch(self, request, pk):
+
+        """
+        가계부의 원하는 내역의 금액과 메모를 수정합니다.
+        """
+
+        household = self.get_object(pk)
+        serializer = HouseholdSerializer(household, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"ok": True})
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
