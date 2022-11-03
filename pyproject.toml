@@ -10,6 +10,7 @@ packages = [{include = "payhere_backend"}]
 python = "^3.10"
 Django = "^4.1.3"
 djangorestframework = "^3.14.0"
+djangorestframework-simplejwt = "^5.2.2"
 
 
 [tool.poetry.group.dev.dependencies]
