@@ -3,7 +3,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from users.models import User
 
 
-class TestHouseholds(APITestCase):
+class TestGetHouseholds(APITestCase):
     def setUp(self):
         user = User.objects.create(email="test1@gmail.com", username="test")
         user.set_password("qwer1234!")
@@ -27,6 +27,14 @@ class TestHouseholds(APITestCase):
         data = response.json()
         self.assertEqual(response.status_code, 200)
         self.assertIsInstance(data, list)
+
+
+class TestCreateHousehold(APITestCase):
+    def setUp(self):
+        user = User.objects.create(email="test1@gmail.com", username="test")
+        user.set_password("qwer1234!")
+        user.save()
+        self.user = user
 
     def test_create_household_not_authorized(self):
         """유저 가계부 내역 작성 비로그인 테스트"""
