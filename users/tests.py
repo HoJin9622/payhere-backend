@@ -10,7 +10,7 @@ class TestLogin(APITestCase):
         self.user = user
 
     def test_login_not_body(self):
-        """유저 로그인 필수 데이터 체크"""
+        """유저 로그인 필수 데이터 체크 테스트"""
 
         response = self.client.post("/api/v1/users/login/")
         data = response.json()
