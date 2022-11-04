@@ -82,9 +82,10 @@ python manage.py runserver
 
 ### 회원가입
 
-- Method: POST
-- URL: api/v1/users/signup/
-- Description: 회원가입을 진행합니다.
+| Method | URL                  | Description            |
+| ------ | -------------------- | ---------------------- |
+| POST   | api/v1/users/signup/ | 회원가입을 진행합니다. |
+
 - Request Example
   ```json
   {
@@ -102,9 +103,10 @@ python manage.py runserver
 
 ### 로그인
 
-- Method: POST
-- URL: api/v1/users/login/
-- Description: 유저 이메일을 검증 후 JWT를 반환합니다.
+| Method | URL                 | Description                             |
+| ------ | ------------------- | --------------------------------------- |
+| POST   | api/v1/users/login/ | 유저 이메일을 검증 후 JWT를 반환합니다. |
+
 - Request Example
   ```json
   {
@@ -122,9 +124,10 @@ python manage.py runserver
 
 ### 토큰 재발급
 
-- Method: POST
-- URL: api/v1/users/token/refresh/
-- Description: refresh token을 확인 후 access token을 반환합니다.
+| Method | URL                         | Description                                        |
+| ------ | --------------------------- | -------------------------------------------------- |
+| POST   | api/v1/users/token/refresh/ | refresh token을 확인 후 access token을 반환합니다. |
+
 - Request Example
   ```json
   {
@@ -140,10 +143,10 @@ python manage.py runserver
 
 ### 가계부 내역 확인
 
-- Method: GET
-- URL: api/v1/households/
-- Description: 자신의 가계부 내역을 확인합니다.
-- Header: `Authorization: Bearer {access token}`
+| Method | URL                | Description                      | Header                                 |
+| ------ | ------------------ | -------------------------------- | -------------------------------------- |
+| GET    | api/v1/households/ | 자신의 가계부 내역을 확인합니다. | `Authorization: Bearer {access token}` |
+
 - Response Example
   ```json
   [
@@ -170,10 +173,10 @@ python manage.py runserver
 
 ### 가계부 내역 기록
 
-- Method: POST
-- URL: api/v1/households/
-- Description: 자신의 가계부 내역을 기록합니다.
-- Header: `Authorization: Bearer {access token}`
+| Method | URL                | Description                      | Header                                 |
+| ------ | ------------------ | -------------------------------- | -------------------------------------- |
+| POST   | api/v1/households/ | 자신의 가계부 내역을 기록합니다. | `Authorization: Bearer {access token}` |
+
 - Request Example
   ```json
   {
@@ -190,10 +193,10 @@ python manage.py runserver
 
 ### 가계부 내역의 세부 내용
 
-- Method: GET
-- URL: api/v1/households/{pk}/
-- Description: 자신의 가계부 내역의 세부 내역을 확인합니다.
-- Header: `Authorization: Bearer {access token}`
+| Method | URL                     | Description                                  | Header                                 |
+| ------ | ----------------------- | -------------------------------------------- | -------------------------------------- |
+| GET    | api/v1/households/{pk}/ | 자신의 가계부 내역의 세부 내역을 확인합니다. | `Authorization: Bearer {access token}` |
+
 - Response Example
   ```json
   {
@@ -206,10 +209,10 @@ python manage.py runserver
 
 ### 가계부 내역 수정
 
-- Method: PATCH
-- URL: api/v1/households/{pk}/
-- Description: 자신의 가계부 내역을 수정합니다.
-- Header: `Authorization: Bearer {access token}`
+| Method | URL                     | Description                      | Header                                 |
+| ------ | ----------------------- | -------------------------------- | -------------------------------------- |
+| PATCH  | api/v1/households/{pk}/ | 자신의 가계부 내역을 수정합니다. | `Authorization: Bearer {access token}` |
+
 - Request Example
   ```json
   {
@@ -226,10 +229,10 @@ python manage.py runserver
 
 ### 가계부 내역 삭제
 
-- Method: POST
-- URL: api/v1/households/{pk}/inactive/
-- Description: 자신의 가계부 내역을 삭제합니다.
-- Header: `Authorization: Bearer {access token}`
+| Method | URL                              | Description                      | Header                                 |
+| ------ | -------------------------------- | -------------------------------- | -------------------------------------- |
+| POST   | api/v1/households/{pk}/inactive/ | 자신의 가계부 내역을 삭제합니다. | `Authorization: Bearer {access token}` |
+
 - Response Example
   ```json
   {
@@ -239,10 +242,10 @@ python manage.py runserver
 
 ### 가계부 내역 복구
 
-- Method: POST
-- URL: api/v1/households/{pk}/active/
-- Description: 자신의 가계부 내역을 복구합니다.
-- Header: `Authorization: Bearer {access token}`
+| Method | URL                            | Description                      | Header                                 |
+| ------ | ------------------------------ | -------------------------------- | -------------------------------------- |
+| POST   | api/v1/households/{pk}/active/ | 자신의 가계부 내역을 복구합니다. | `Authorization: Bearer {access token}` |
+
 - Response Example
   ```json
   {
