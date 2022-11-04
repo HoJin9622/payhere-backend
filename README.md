@@ -21,6 +21,7 @@
     - [가계부 내역 수정](#가계부-내역-수정)
     - [가계부 내역 삭제](#가계부-내역-삭제)
     - [가계부 내역 복구](#가계부-내역-복구)
+  - [:recycle: 테스트](#recycle-테스트)
 
 ## :notebook_with_decorative_cover: 프로젝트 요구사항
 
@@ -248,3 +249,34 @@ python manage.py runserver
     "ok": true
   }
   ```
+
+## :recycle: 테스트
+
+```bash
+Found 10 test(s).
+Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.736s
+
+OK
+Destroying test database for alias 'default'...
+```
+
+- 유저
+  - 회원가입
+    - 필수 데이터 체크 테스트
+    - 회원가입 성공 테스트
+  - 로그인
+    - 필수 데이터 체크 테스트
+    - 패스워드 확인 테스트
+    - 로그인 성공 테스트
+- 가계부
+  - 가계부 내역
+    - 로그인 테스트
+    - 가계부 내역 성공 테스트
+  - 가계부 내역 생성
+    - 로그인 테스트
+    - 필수 데이터 체크 테스트
+    - 가계부 내역 작성 성공 테스트
