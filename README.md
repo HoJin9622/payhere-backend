@@ -12,6 +12,7 @@
   - [:pencil2: Commit Message Convention](#pencil2-commit-message-convention)
   - [:chart_with_upwards_trend: Git Flow / Branch Information](#chart_with_upwards_trend-git-flow--branch-information)
   - [:closed_book: API Docs](#closed_book-api-docs)
+    - [회원가입](#회원가입)
     - [로그인](#로그인)
     - [토큰 재발급](#토큰-재발급)
     - [가계부 내역 확인](#가계부-내역-확인)
@@ -77,6 +78,26 @@ python manage.py runserver
 ```
 
 ## :closed_book: API Docs
+
+### 회원가입
+
+- Method: POST
+- URL: api/v1/users/signup/
+- Description: 회원가입을 진행합니다.
+- Request Example
+  ```json
+  {
+    "email": "test1@gmail.com", // required
+    "password": "qwer1234!", // required
+    "username": "test1" // required
+  }
+  ```
+- Response Example
+  ```json
+  {
+    "ok": true
+  }
+  ```
 
 ### 로그인
 
