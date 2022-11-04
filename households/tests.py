@@ -15,6 +15,7 @@ class TestGetHouseholds(APITestCase):
 
         response = self.client.get("/api/v1/households/")
         data = response.json()
+
         self.assertEqual(response.status_code, 401)
         self.assertIn("detail", data)
 
@@ -25,6 +26,7 @@ class TestGetHouseholds(APITestCase):
         header = {"HTTP_AUTHORIZATION": f"Bearer {refresh.access_token}"}
         response = self.client.get("/api/v1/households/", **header)
         data = response.json()
+
         self.assertEqual(response.status_code, 200)
         self.assertIsInstance(data, list)
 
@@ -41,6 +43,7 @@ class TestCreateHousehold(APITestCase):
 
         response = self.client.post("/api/v1/households/")
         data = response.json()
+
         self.assertEqual(response.status_code, 401)
         self.assertIn("detail", data)
 
@@ -51,6 +54,7 @@ class TestCreateHousehold(APITestCase):
         header = {"HTTP_AUTHORIZATION": f"Bearer {refresh.access_token}"}
         response = self.client.post("/api/v1/households/", **header)
         data = response.json()
+
         self.assertEqual(response.status_code, 400)
         self.assertIn("amount", data)
 
@@ -62,5 +66,6 @@ class TestCreateHousehold(APITestCase):
         header = {"HTTP_AUTHORIZATION": f"Bearer {refresh.access_token}"}
         response = self.client.post("/api/v1/households/", request_data, **header)
         data = response.json()
+
         self.assertEqual(response.status_code, 201)
         self.assertEqual(data["ok"], True)
