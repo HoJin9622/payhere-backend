@@ -12,6 +12,16 @@
   - [:pencil2: Commit Message Convention](#pencil2-commit-message-convention)
   - [:chart_with_upwards_trend: Git Flow / Branch Information](#chart_with_upwards_trend-git-flow--branch-information)
   - [:closed_book: API Docs](#closed_book-api-docs)
+    - [회원가입](#회원가입)
+    - [로그인](#로그인)
+    - [토큰 재발급](#토큰-재발급)
+    - [가계부 내역 확인](#가계부-내역-확인)
+    - [가계부 내역 기록](#가계부-내역-기록)
+    - [가계부 내역의 세부 내용](#가계부-내역의-세부-내용)
+    - [가계부 내역 수정](#가계부-내역-수정)
+    - [가계부 내역 삭제](#가계부-내역-삭제)
+    - [가계부 내역 복구](#가계부-내역-복구)
+  - [:recycle: 테스트](#recycle-테스트)
 
 ## :notebook_with_decorative_cover: 프로젝트 요구사항
 
@@ -69,3 +79,207 @@ python manage.py runserver
 ```
 
 ## :closed_book: API Docs
+
+### 회원가입
+
+| Method | URL                  | Description            |
+| ------ | -------------------- | ---------------------- |
+| POST   | api/v1/users/signup/ | 회원가입을 진행합니다. |
+
+- Request Example
+  ```json
+  {
+    "email": "test1@gmail.com", // required
+    "password": "qwer1234!", // required
+    "username": "test1" // required
+  }
+  ```
+- Response Example
+  ```json
+  {
+    "ok": true
+  }
+  ```
+
+### 로그인
+
+| Method | URL                 | Description                             |
+| ------ | ------------------- | --------------------------------------- |
+| POST   | api/v1/users/login/ | 유저 이메일을 검증 후 JWT를 반환합니다. |
+
+- Request Example
+  ```json
+  {
+    "email": "test1@gmail.com", // required
+    "password": "qwer1234!" // required
+  }
+  ```
+- Response Example
+  ```json
+  {
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY2NzYyMjMwMywiaWF0IjoxNjY3NTM1OTAzLCJqdGkiOiIyZWFlMjkxNjM4NGM0ZTM0ODZhMWNkZWRkZGE2YjM2YSIsInVzZXJfaWQiOjF9.v0BdSHzqN_uV14qX8cxLreOv1JLg1SM4i420lkl57xg",
+    "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY3NTM2MjAzLCJpYXQiOjE2Njc1MzU5MDMsImp0aSI6Ijk4NzJjMDg4YzFmMjRlNGY5NjJmZGZmZWM1NjVhN2MwIiwidXNlcl9pZCI6MX0.e-hiZIYBfL5ibTq_IUYbm-1molzLhoLsTxfA_E3Do14"
+  }
+  ```
+
+### 토큰 재발급
+
+| Method | URL                         | Description                                        |
+| ------ | --------------------------- | -------------------------------------------------- |
+| POST   | api/v1/users/token/refresh/ | refresh token을 확인 후 access token을 반환합니다. |
+
+- Request Example
+  ```json
+  {
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY2NzYyMjMwMywiaWF0IjoxNjY3NTM1OTAzLCJqdGkiOiIyZWFlMjkxNjM4NGM0ZTM0ODZhMWNkZWRkZGE2YjM2YSIsInVzZXJfaWQiOjF9.v0BdSHzqN_uV14qX8cxLreOv1JLg1SM4i420lkl57xg" // required
+  }
+  ```
+- Response Example
+  ```json
+  {
+    "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY3NTM2MjkxLCJpYXQiOjE2Njc1MzU5MDMsImp0aSI6ImU1ZWI4NjcyODRkMzRiZjVhNGZkYjBjYTI2NDJkODU5IiwidXNlcl9pZCI6MX0.9mq-i5hnPJhxTxpjracgnOFHwcVxTUa1LCY9yvGJ3uA"
+  }
+  ```
+
+### 가계부 내역 확인
+
+| Method | URL                | Description                      | Header                                 |
+| ------ | ------------------ | -------------------------------- | -------------------------------------- |
+| GET    | api/v1/households/ | 자신의 가계부 내역을 확인합니다. | `Authorization: Bearer {access token}` |
+
+- Response Example
+  ```json
+  [
+    {
+      "id": 2,
+      "amount": 35000,
+      "memo": "고깃집",
+      "created_at": "2022-11-03T19:47:45.434960+09:00"
+    },
+    {
+      "id": 3,
+      "amount": 20000,
+      "memo": "",
+      "created_at": "2022-11-03T19:48:12.478745+09:00"
+    },
+    {
+      "id": 4,
+      "amount": 5000,
+      "memo": "편의점",
+      "created_at": "2022-11-03T19:48:44.092476+09:00"
+    }
+  ]
+  ```
+
+### 가계부 내역 기록
+
+| Method | URL                | Description                      | Header                                 |
+| ------ | ------------------ | -------------------------------- | -------------------------------------- |
+| POST   | api/v1/households/ | 자신의 가계부 내역을 기록합니다. | `Authorization: Bearer {access token}` |
+
+- Request Example
+  ```json
+  {
+    "amount": 9000, // required
+    "memo": "미용실" // optional
+  }
+  ```
+- Response Example
+  ```json
+  {
+    "ok": true
+  }
+  ```
+
+### 가계부 내역의 세부 내용
+
+| Method | URL                     | Description                                  | Header                                 |
+| ------ | ----------------------- | -------------------------------------------- | -------------------------------------- |
+| GET    | api/v1/households/{pk}/ | 자신의 가계부 내역의 세부 내역을 확인합니다. | `Authorization: Bearer {access token}` |
+
+- Response Example
+  ```json
+  {
+    "id": 2,
+    "amount": 35000,
+    "memo": "",
+    "created_at": "2022-11-03T19:47:45.434960+09:00"
+  }
+  ```
+
+### 가계부 내역 수정
+
+| Method | URL                     | Description                      | Header                                 |
+| ------ | ----------------------- | -------------------------------- | -------------------------------------- |
+| PATCH  | api/v1/households/{pk}/ | 자신의 가계부 내역을 수정합니다. | `Authorization: Bearer {access token}` |
+
+- Request Example
+  ```json
+  {
+    "amount": 9000, // optional
+    "memo": "미용실" // optional
+  }
+  ```
+- Response Example
+  ```json
+  {
+    "ok": true
+  }
+  ```
+
+### 가계부 내역 삭제
+
+| Method | URL                              | Description                      | Header                                 |
+| ------ | -------------------------------- | -------------------------------- | -------------------------------------- |
+| POST   | api/v1/households/{pk}/inactive/ | 자신의 가계부 내역을 삭제합니다. | `Authorization: Bearer {access token}` |
+
+- Response Example
+  ```json
+  {
+    "ok": true
+  }
+  ```
+
+### 가계부 내역 복구
+
+| Method | URL                            | Description                      | Header                                 |
+| ------ | ------------------------------ | -------------------------------- | -------------------------------------- |
+| POST   | api/v1/households/{pk}/active/ | 자신의 가계부 내역을 복구합니다. | `Authorization: Bearer {access token}` |
+
+- Response Example
+  ```json
+  {
+    "ok": true
+  }
+  ```
+
+## :recycle: 테스트
+
+```bash
+Found 10 test(s).
+Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.736s
+
+OK
+Destroying test database for alias 'default'...
+```
+
+- 유저
+  - 회원가입
+    - 필수 데이터 체크 테스트
+    - 회원가입 성공 테스트
+  - 로그인
+    - 필수 데이터 체크 테스트
+    - 패스워드 확인 테스트
+    - 로그인 성공 테스트
+- 가계부
+  - 가계부 내역
+    - 로그인 테스트
+    - 가계부 내역 성공 테스트
+  - 가계부 내역 생성
+    - 로그인 테스트
+    - 필수 데이터 체크 테스트
+    - 가계부 내역 작성 성공 테스트
